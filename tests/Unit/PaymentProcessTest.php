@@ -37,21 +37,80 @@ class PaymentProcessTest extends TestCase
     }
 
     /** @test */
-/*     public function it_returns_error_when_merchant_does_not_exist()
+    public function it_returns_error_when_merchant_does_not_exist()
     {
-        // Datos de prueba con un comercio no existente
+        // Datos de prueba con un comercio no existente o inválido
         $data = [
-            'merchantId' => 999, // ID no existente
+            'merchantId' => null,
             'amount' => 1000,
             'paymentMethodId' => 1,
             'expectedPaymentFinalStatus' => true,
         ];
 
         // Realiza la solicitud POST a la función processPayment
-        $response = $this->post('/payments/process', $data);
+        $response = $this->post('/api/payments/process', $data);
 
         // Verifica la respuesta de error
-        $response->assertStatus(500);
-        $response->assertJson(['message' => 'Error al intentar crear registro de pago para el comercio ID: 999']);
-    } */
+        $response->assertStatus(422);
+
+        $jsonResponse = $response->json();
+
+        $this->assertTrue(
+            isset($jsonResponse['message']) && $jsonResponse['message'] === "Comercio no valido o inexistente" ||
+            (isset($jsonResponse['errors']['merchantId']) && $jsonResponse['errors']['merchantId'][0] === "The merchant id field is required.")
+        );
+    }
+
+    /** @test */
+    public function it_returns_error_when_invalid_payment_input()
+    {
+        // Datos de prueba con un comercio no existente o inválido
+        $data = [
+            'merchantId' => null,
+            'amount' => true,
+            'paymentMethodId' => "dsa",
+            'expectedPaymentFinalStatus' => 'hello',
+        ];
+
+        // Realiza la solicitud POST a la función processPayment
+        $response = $this->post('/api/payments/process', $data);
+
+        // Verifica la respuesta de error
+        $response->assertStatus(422);
+
+    }
+
+       /** @test */
+       public function it_validates_merchant_email_when_token_is_generated()
+       {
+           // Datos de prueba con un comercio no existente o inválido
+           $data = [
+               'email' => 'asdasd@store.cl',
+               'password' => "123Tienda"
+           ];
+
+           // Realiza la solicitud POST a la función processPayment
+           $response = $this->post('/api/auth/login', $data);
+
+           // Verifica la respuesta de error
+           $response->assertStatus(401);
+           $response->assertJson(['message' => 'Unauthorized']);
+       }
+
+   /** @test */
+    public function it_validates_merchant_pass_when_token_is_generated()
+    {
+        // Datos de prueba con un comercio no existente o inválido
+        $data = [
+            'email' => 'tienda1@store.cl',
+            'password' => "asdasd"
+        ];
+
+        // Realiza la solicitud POST a la función processPayment
+        $response = $this->post('/api/auth/login', $data);
+
+        // Verifica la respuesta de error
+        $response->assertStatus(401);
+        $response->assertJson(['message' => 'Unauthorized']);
+    }
 }

@@ -78,22 +78,22 @@ class PaymentMethodController extends Controller
     public function store(Request $request)
     {
         try {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255|unique:payment_methods,name',
-            'fee' => 'required|numeric|min:0',
-        ]);
+            $validatedData = $request->validate([
+                'name' => 'required|string|max:255|unique:payment_methods,name',
+                'fee' => 'required|numeric|min:0',
+            ]);
 
-        $paymentMethod = PaymentMethod::create($validatedData);
+            $paymentMethod = PaymentMethod::create($validatedData);
 
-        Log::info('Se ha creado un nuevo método de pago: ' . $paymentMethod);
+            Log::info('Se ha creado un nuevo método de pago: ' . $paymentMethod);
 
-        return response()->json([
-            'message' => 'El método de pago se ha creado exitosamente.',
-            'data' => $paymentMethod
-        ], 201); // 201 Created
+            return response()->json([
+                'message' => 'El método de pago se ha creado exitosamente.',
+                'data' => $paymentMethod
+            ], 201); // 201 Created
 
     } catch (\Throwable $th) {
-        return response()->json(["message"=>"Error al procesar la solicitud."], 500);
+        return response()->json(["message"=>"Error al procesar la solicitud. {$th->getMessage()}"], 500);
     }
     }
 

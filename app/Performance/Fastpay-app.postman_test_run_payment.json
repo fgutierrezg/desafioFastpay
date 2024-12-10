@@ -1,0 +1,449 @@
+{
+	"id": "373c8350-e275-43ba-a0a4-b166674fd27e",
+	"name": "Fastpay-app",
+	"timestamp": "2024-12-10T23:29:45.056Z",
+	"collection_id": "23178714-e8a86083-af15-4486-b715-c17a9d089a17",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 60,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2024-12-10T23:29:16.417Z",
+	"totalFail": 40,
+	"results": [
+		{
+			"id": "c3eb4ea6-4998-4adc-a720-3a76a50c87f5",
+			"name": "Procesar Pago",
+			"url": "http://localhost/fastpay-app/public/api/payments/process",
+			"time": 191,
+			"responseCode": {
+				"code": 429,
+				"name": "Too Many Requests"
+			},
+			"tests": {
+				"Status code is 202": false
+			},
+			"testPassFailCounts": {
+				"Status code is 202": {
+					"pass": 60,
+					"fail": 40
+				}
+			},
+			"times": [
+				319,
+				247,
+				208,
+				205,
+				298,
+				227,
+				228,
+				187,
+				251,
+				229,
+				219,
+				222,
+				266,
+				248,
+				242,
+				251,
+				217,
+				223,
+				199,
+				202,
+				203,
+				219,
+				217,
+				216,
+				204,
+				279,
+				202,
+				213,
+				203,
+				222,
+				221,
+				189,
+				204,
+				255,
+				239,
+				207,
+				300,
+				210,
+				378,
+				249,
+				267,
+				240,
+				277,
+				200,
+				242,
+				217,
+				215,
+				190,
+				280,
+				264,
+				218,
+				376,
+				234,
+				235,
+				237,
+				269,
+				220,
+				262,
+				259,
+				210,
+				158,
+				168,
+				162,
+				154,
+				261,
+				166,
+				162,
+				158,
+				184,
+				164,
+				169,
+				150,
+				160,
+				164,
+				165,
+				152,
+				263,
+				163,
+				161,
+				167,
+				147,
+				161,
+				155,
+				165,
+				152,
+				162,
+				155,
+				159,
+				210,
+				162,
+				162,
+				161,
+				163,
+				161,
+				156,
+				170,
+				163,
+				160,
+				168,
+				191
+			],
+			"allTests": [
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": true
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				},
+				{
+					"Status code is 202": false
+				}
+			]
+		}
+	],
+	"count": 100,
+	"totalTime": 20964,
+	"collection": {
+		"requests": [
+			{
+				"id": "c3eb4ea6-4998-4adc-a720-3a76a50c87f5",
+				"method": "POST"
+			}
+		]
+	}
+}
