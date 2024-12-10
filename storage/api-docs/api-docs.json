@@ -1,0 +1,693 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Documentación de la API",
+        "description": "Descripción detallada de la API",
+        "contact": {
+            "email": "francisco.gutierrez.g@live.cl"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost/fastpay-app/public/api",
+            "description": "Servidor local"
+        }
+    ],
+    "paths": {
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "Comercios"
+                ],
+                "summary": "Autenticación de comercios",
+                "description": "Permite a un comercio autenticarse y obtener un token JWT.",
+                "operationId": "c3c39870192156b5db2f8eba1bf4efb1",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "merchant@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Autenticación exitosa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0..."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Credenciales inválidas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error interno del servidor",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error al procesar la solicitud."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/payments/merchant/{id}": {
+            "get": {
+                "tags": [
+                    "Pagos"
+                ],
+                "summary": "Obtener pagos por ID de comercio",
+                "description": "Devuelve los pagos asociados a un comercio específico por su ID.",
+                "operationId": "showPaymentsByMerchantId",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del comercio",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Pagos encontrados para el comercio especificado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Pagos encontrados para comercio ID 3"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": 121
+                                                    },
+                                                    "merchant_id": {
+                                                        "type": "integer",
+                                                        "example": 3
+                                                    },
+                                                    "amount": {
+                                                        "type": "number",
+                                                        "format": "float",
+                                                        "example": 6956
+                                                    },
+                                                    "fee": {
+                                                        "type": "number",
+                                                        "format": "float",
+                                                        "example": 41.74
+                                                    },
+                                                    "payment_method": {
+                                                        "type": "integer",
+                                                        "example": 3
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": "approved"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-12-10T01:32:29.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date-time",
+                                                        "example": "2024-12-10T01:32:29.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No autorizado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No se encontraron pagos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No se encontraron pagos asociados al comercio ID X."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Acceso denegado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Acceso denegado al recurso."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/payments/merchant/{merchantId}/payment/{paymentId}": {
+            "get": {
+                "tags": [
+                    "Pagos"
+                ],
+                "summary": "Obtener un pago por ID de comercio y ID de pago",
+                "description": "Devuelve un pago específico asociado a un comercio dado por su ID y el ID de pago.",
+                "operationId": "showPaymentByMerchantIdAndPaymentId",
+                "parameters": [
+                    {
+                        "name": "merchantId",
+                        "in": "path",
+                        "description": "ID del comercio",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 3
+                        }
+                    },
+                    {
+                        "name": "paymentId",
+                        "in": "path",
+                        "description": "ID del pago",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 121
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Pago encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Pago encontrado para comercio ID X."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 121
+                                                },
+                                                "merchant_id": {
+                                                    "type": "integer",
+                                                    "example": 3
+                                                },
+                                                "amount": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 6956
+                                                },
+                                                "fee": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": 41.74
+                                                },
+                                                "payment_method": {
+                                                    "type": "integer",
+                                                    "example": 3
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "approved"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-12-10T01:32:29.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-12-10T01:32:29.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "No autorizado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No autorizado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Acceso denegado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Acceso denegado"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No se encontró un pago coincidente con la busqueda.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No se encontró un pago coincidente con la busqueda."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/payments/process": {
+            "post": {
+                "tags": [
+                    "Pagos"
+                ],
+                "summary": "Procesar un pago",
+                "description": "Procesa un pago y lo guarda en la base de datos",
+                "operationId": "processPayment",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "merchantId": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "amount": {
+                                        "type": "number",
+                                        "example": 5000
+                                    },
+                                    "paymentMethodId": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "expectedPaymentFinalStatus": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Validación de pago en proceso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validacion de pago en proceso."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "merchant_id": {
+                                                    "type": "number",
+                                                    "example": 1
+                                                },
+                                                "amount": {
+                                                    "type": "number",
+                                                    "example": 5000
+                                                },
+                                                "fee": {
+                                                    "type": "number",
+                                                    "example": 0
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "in validation"
+                                                },
+                                                "payment_method": {
+                                                    "type": "number",
+                                                    "example": 2
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-10T15:28:35.000000Z"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "example": "2024-12-10T15:28:35.000000Z"
+                                                },
+                                                "id": {
+                                                    "type": "number",
+                                                    "example": 123
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error al intentar procesar el pago",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error al intentar procesar el pago:"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "El contenido enviado no se pudo procesar.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "properties": {
+                                                "merchantId": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The merchant id field is required."
+                                                    }
+                                                },
+                                                "amount": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The amount must be a number."
+                                                    }
+                                                },
+                                                "paymentMethodId": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The payment method id field is required."
+                                                    }
+                                                },
+                                                "expectedPaymentFinalStatus": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The expected payment final status field must be true or false."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/payment-methods": {
+            "post": {
+                "tags": [
+                    "Métodos de pago"
+                ],
+                "summary": "Crear un nuevo método de pago",
+                "description": "Permite crear un nuevo método de pago con nombre y tarifa.",
+                "operationId": "3e22bd9cd762c698b04fa122c939ac7a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "fee"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Bitcoin"
+                                    },
+                                    "fee": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": "0.10"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Moneda digital descentralizada, segura, basada en blockchain, sin intermediarios."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Método de pago creado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "El método de pago se ha creado exitosamente."
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 6
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Bitcoin"
+                                                },
+                                                "fee": {
+                                                    "type": "number",
+                                                    "format": "float",
+                                                    "example": "0.10"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-12-10T15:49:31.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2024-12-10T15:49:31.000000Z"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error interno del servidor",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error al procesar la solicitud."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error de validación",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo nombre es obligatorio."
+                                                    }
+                                                },
+                                                "fee": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "El campo tarifa debe ser un número."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Comercios",
+            "description": "Comercios"
+        },
+        {
+            "name": "Pagos",
+            "description": "Pagos"
+        },
+        {
+            "name": "Métodos de pago",
+            "description": "Métodos de pago"
+        }
+    ]
+}
